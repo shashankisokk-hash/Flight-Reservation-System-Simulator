@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Passenger {
     private String name;
     private int id;
@@ -43,6 +45,7 @@ class Flight {
     }
 
     public void displaySeats() {
+        System.out.println("\nSeat Status:");
         for (int i = 0; i < MAX_SEATS; i++) {
             if (seats[i] == null) {
                 System.out.println("Seat " + (i + 1) + ": Empty");
@@ -55,37 +58,36 @@ class Flight {
 
 public class Main {
     public static void main(String[] args) {
-        Flight flight = new Flight(5);
+        Scanner sc = new Scanner(System.in);
 
-        Passenger p1 = new Passenger("Aman", 1);
-        Passenger p2 = new Passenger("Rahul", 2);
-        Passenger p3 = new Passenger("Riya", 3);
+        System.out.print("Enter Flight Capacity: ");
+        int capacity = sc.nextInt();
 
-        if (flight.bookSeat(p1)) {
-            System.out.println("Passenger Aman booked successfully");
-        } else {
-            System.out.println("Booking failed for Aman");
-        }
+        Flight flight = new Flight(capacity);
 
-        if (flight.bookSeat(p2)) {
-            System.out.println("Passenger Rahul booked successfully");
-        } else {
-            System.out.println("Booking failed for Rahul");
-        }
+        System.out.print("Enter Number of Passengers to Book: ");
+        int n = sc.nextInt();
 
-        if (flight.bookSeat(p1)) {
-            System.out.println("Passenger Aman booked successfully");
-        } else {
-            System.out.println("Duplicate booking not allowed for Aman");
+        for (int i = 1; i <= n; i++) {
+            sc.nextLine(); // consume newline
+
+            System.out.print("\nEnter Passenger Name: ");
+            String name = sc.nextLine();
+
+            System.out.print("Enter Passenger ID: ");
+            int id = sc.nextInt();
+
+            Passenger p = new Passenger(name, id);
+
+            if (flight.bookSeat(p)) {
+                System.out.println("Booking Successful for " + name);
+            } else {
+                System.out.println("Booking Failed (Duplicate ID or Flight Full)");
+            }
         }
 
         flight.displaySeats();
 
-        flight.bookSeat(new Passenger("User4", 4));
-        flight.bookSeat(new Passenger("User5", 5));
-
-        if (!flight.bookSeat(p3)) {
-            System.out.println("Flight Full! Booking failed for Passenger: Riya");
-        }
+        sc.close();
     }
 }
