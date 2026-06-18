@@ -69,7 +69,7 @@ public class Main {
         int n = sc.nextInt();
 
         for (int i = 1; i <= n; i++) {
-            sc.nextLine(); // consume newline
+            sc.nextLine(); 
 
             System.out.print("\nEnter Passenger Name: ");
             String name = sc.nextLine();
